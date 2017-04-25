@@ -38,8 +38,6 @@ void FilteredTextEdit::keyPressEvent(QKeyEvent *event)
 TextInputWidget::TextInputWidget(QWidget *parent)
     : QWidget(parent)
 {
-	setFont(QFont("Emoji One"));
-
 	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 	setCursor(Qt::ArrowCursor);
 	setStyleSheet("background-color: #f8fbfe; height: 45px;");
@@ -96,7 +94,7 @@ void TextInputWidget::addSelectedEmoji(const QString &emoji)
 {
 	QTextCursor cursor = input_->textCursor();
 
-	QFont emoji_font("Emoji One");
+	QFont emoji_font("EmojiOne");
 	emoji_font.setPixelSize(18);
 
 	QFont text_font("Open Sans");

@@ -39,8 +39,9 @@ void EmojiItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opt
 
 	auto emoji = index.data(Qt::UserRole).toString();
 
-	QFont font("Emoji One");
+	QFont font("EmojiOne");
 	font.setPixelSize(19);
+	font.setStyleName("Color");
 
 	painter->setFont(font);
 	painter->drawText(viewOption.rect, emoji);

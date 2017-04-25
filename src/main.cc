@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 	QFontDatabase::addApplicationFont(":/fonts/fonts/OpenSans/OpenSans-BoldItalic.ttf");
 	QFontDatabase::addApplicationFont(":/fonts/fonts/OpenSans/OpenSans-Semibold.ttf");
 	QFontDatabase::addApplicationFont(":/fonts/fonts/OpenSans/OpenSans-SemiboldItalic.ttf");
-	QFontDatabase::addApplicationFont(":/fonts/fonts/EmojiOne/emojione-android.ttf");
+	QFontDatabase::addApplicationFont(":/fonts/fonts/EmojiOne/emojione-svg.otf");
 
 	app.setWindowIcon(QIcon(":/logos/nheko.png"));
 

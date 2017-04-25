@@ -47,5 +47,6 @@
         <file>fonts/OpenSans/OpenSans-ExtraBoldItalic.ttf</file>
 
         <file>fonts/EmojiOne/emojione-android.ttf</file>
+        <file>fonts/EmojiOne/emojione-svg.otf</file>
     </qresource>
 </RCC>
