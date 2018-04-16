@@ -53,6 +53,7 @@ ChatPage::ChatPage(QSharedPointer<MatrixClient> client,
   : QWidget(parent)
   , client_(client)
   , userSettings_{userSettings}
+  , notificationManager(this)
 {
         setObjectName("chatPage");
 
@@ -392,6 +393,20 @@ ChatPage::ChatPage(QSharedPointer<MatrixClient> client,
                 this,
                 &ChatPage::setGroupViewState);
 
+        connect(this,
+                &ChatPage::notifyMessage,
+                &notificationManager,
+                &NotificationManager::sendMessage);
+
+        connect(&notificationManager,
+                &NotificationManager::notificationClicked,
+                this,
+                [this](const QString &roomid, const QString &eventid) {
+                        Q_UNUSED(eventid)
+                        room_list_->highlightSelectedRoom(roomid);
+                        activateWindow();
+                });
+
         AvatarProvider::init(client);
 
         instance_ = this;
@@ -496,6 +511,22 @@ ChatPage::syncCompleted(const mtx::responses::Sync &response)
         trackInvites(response.rooms.invite);
 
         view_manager_->sync(response.rooms);
+
+        namespace msg     = mtx::events::msg;
+        for (const auto &room : response.rooms.join) {
+            for (const auto &event_ : room.second.timeline.events) {
+                if (mpark::holds_alternative<mtx::events::RoomEvent<msg::Text>>(event_)) {
+                    QString room_id = QString::fromStdString(room.first);
+                    auto event = mpark::get<mtx::events::RoomEvent<msg::Text>>(event_);
+                    notifyMessage(room_id,
+                                  QString::fromStdString(event.event_id),
+                                  roomStates_[room_id]->getName(),
+                                  view_manager_->displayName(QString::fromStdString(event.sender)),
+                                  QString::fromStdString(event.content.body),
+                                  roomAvatars_[room_id].toImage());
+                }
+            }
+        }
 
         client_->setNextBatchToken(nextBatchToken);
         client_->sync();

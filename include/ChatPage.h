@@ -26,6 +26,7 @@
 
 #include "CommunitiesList.h"
 #include "Community.h"
+#include "NotificationManager.h"
 #include <mtx.hpp>
 
 class Cache;
@@ -43,6 +44,7 @@ class TopRoomBar;
 class TypingDisplay;
 class UserInfoWidget;
 class UserSettings;
+class NotificationManager;
 
 namespace dialogs {
 class ReadReceipts;
@@ -88,6 +90,12 @@ signals:
         void showLoginPage(const QString &msg);
         void showUserSettingsPage();
         void showOverlayProgressBar();
+        void notifyMessage(const QString &roomid,
+                           const QString &eventid,
+                           const QString &roomname,
+                           const QString &sender,
+                           const QString &message,
+                           const QImage &icon);
 
 private slots:
         void showUnreadMessageNotification(int count);
@@ -209,6 +217,8 @@ private:
 
         // LMDB wrapper.
         QSharedPointer<Cache> cache_;
+
+        NotificationManager notificationManager;
 };
 
 template<class Collection>

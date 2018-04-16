@@ -41,6 +41,7 @@ find_package(Qt5Network REQUIRED)
 find_package(Qt5LinguistTools REQUIRED)
 find_package(Qt5Concurrent REQUIRED)
 find_package(Qt5Multimedia REQUIRED)
+find_package(Qt5DBus)
 
 if (APPLE)
     find_package(Qt5MacExtras REQUIRED)
@@ -152,6 +153,7 @@ set(SRC_FILES
     src/LoginPage.cc
     src/MainWindow.cc
     src/MatrixClient.cc
+    src/NotificationManager.cc
     src/QuickSwitcher.cc
     src/RegisterPage.cc
     src/RoomInfoListItem.cc
@@ -267,6 +269,7 @@ qt5_wrap_cpp(MOC_HEADERS
     include/MainWindow.h
     include/InviteeItem.h
     include/MatrixClient.h
+    include/NotificationManager.h
     include/QuickSwitcher.h
     include/RegisterPage.h
     include/RoomInfoListItem.h
@@ -316,7 +319,7 @@ elseif(WIN32)
     target_link_libraries (nheko ${NTDLIB} ${NHEKO_LIBS} Qt5::WinMain Qt5::Multimedia)
 else()
     add_executable (nheko ${OS_BUNDLE} ${NHEKO_DEPS})
-    target_link_libraries (nheko ${NHEKO_LIBS} Qt5::Multimedia)
+    target_link_libraries (nheko ${NHEKO_LIBS} Qt5::Multimedia Qt5::DBus)
 endif()
 
 if(EXTERNAL_PROJECT_DEPS)

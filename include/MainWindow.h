@@ -28,6 +28,7 @@
 #include "RegisterPage.h"
 #include "UserSettingsPage.h"
 #include "WelcomePage.h"
+#include "NotificationManager.h"
 
 class ChatPage;
 class LoadingIndicator;
@@ -36,6 +37,7 @@ class OverlayModal;
 class SnackBar;
 class TrayIcon;
 class UserSettings;
+class NotificationManager;
 
 namespace mtx {
 namespace requests {
